@@ -1,6 +1,6 @@
 # Hotel Offer Orchestrator
 
-A backend project built using Node.js, TypeScript, Temporal, and Redis to aggregate hotel offers from multiple suppliers.
+A backend service built with Node.js, TypeScript, Temporal, and Redis to aggregate hotel offers from multiple suppliers.
 
 ## Tech Stack
 - Node.js
@@ -14,8 +14,8 @@ A backend project built using Node.js, TypeScript, Temporal, and Redis to aggreg
 - Aggregate offers from multiple hotel suppliers
 - Remove duplicate hotels by hotel name
 - Select the lowest-priced offer for each hotel
-- Filter hotels using minimum and maximum price
-- Use Temporal workflows to orchestrate processing
+- Filter hotels by minimum and maximum price
+- Orchestrate processing with Temporal workflows
 
 ## API Endpoints
 
@@ -41,7 +41,7 @@ A backend project built using Node.js, TypeScript, Temporal, and Redis to aggreg
 
    `docker compose up -d --build`
 
-3. Start the API in a terminal:
+3. Start the API in one terminal:
 
    `npm run dev`
 
@@ -49,7 +49,7 @@ A backend project built using Node.js, TypeScript, Temporal, and Redis to aggreg
 
    `npm run worker`
 
-5. Check the API at:
+5. Check the health endpoint:
 
    `http://localhost:3000/health`
 
