@@ -1,0 +1,37 @@
+
+services:
+  redis:
+    image: redis:7-alpine
+    container_name: hotel-redis
+    ports:
+      - "6379:6379"
+    restart: unless-stopped
+
+  temporal:
+    image: temporalio/temporal:latest
+    container_name: temporal
+    ports:
+      - "7233:7233"
+      - "8233:8233"
+    command:
+      - server
+      - start-dev
+      - --ip
+      - 0.0.0.0
+    restart: unless-stopped
+
+  api:
+    build: .
+    container_name: hotel-api
+    ports:
+      - "3000:3000"
+    environment:
+      - PORT=3000
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - TEMPORAL_ADDRESS=temporal:7233
+    depends_on:
+      - redis
+      - temporal
+    restart: unless-stopped
+
