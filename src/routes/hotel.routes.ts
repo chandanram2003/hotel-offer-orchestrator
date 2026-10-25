@@ -45,7 +45,6 @@ router.get("/", async (req, res) => {
       return;
     }
 
-    // Price-filtered requests read directly from Redis.
     if (minPrice !== undefined || maxPrice !== undefined) {
       const cachedHotels = await getCachedHotelOffers(city, minPrice, maxPrice);
 

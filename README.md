@@ -1,62 +1,69 @@
 # Hotel Offer Orchestrator
 
-A backend service built with Node.js, TypeScript, Temporal, and Redis to aggregate hotel offers from multiple suppliers.
-
-## Tech Stack
-- Node.js
-- TypeScript
-- Temporal
-- Redis
-- Docker and Docker Compose
+A backend service built with Node.js, TypeScript, Express.js, Temporal, and Redis to aggregate hotel offers from multiple suppliers and select the best offers.
 
 ## Features
+
 - Fetch hotel offers by city
-- Aggregate offers from multiple hotel suppliers
+- Aggregate offers from Supplier A and Supplier B
 - Remove duplicate hotels by hotel name
-- Select the lowest-priced offer for each hotel
-- Filter hotels by minimum and maximum price
-- Orchestrate processing with Temporal workflows
+- Select the best offers based on price and commission
+- Filter offers by minimum and maximum price
+- Cache results using Redis
+- Handle supplier failures with fallback support
+- Process offers using Temporal workflows and workers
+- Health check endpoint
+
+## Tech Stack
+
+- Node.js
+- TypeScript
+- Express.js
+- Redis
+- Temporal
+- Docker and Docker Compose
 
 ## API Endpoints
 
-### Get Hotel Offers
-`GET /api/hotels?city=Delhi`
-
-### Filter by Minimum Price
-`GET /api/hotels?city=Delhi&minPrice=4000`
-
-### Filter by Maximum Price
-`GET /api/hotels?city=Delhi&maxPrice=4000`
-
-### Health Check
-`GET /health`
+| Method | Endpoint | Description |
+|---|---|---|
+| GET | `/health` | Check API health |
+| GET | `/api/hotels?city=Delhi` | Get hotel offers for a city |
+| GET | `/api/hotels?city=Delhi&minPrice=3000&maxPrice=4000` | Filter offers by price |
+| GET | `/supplierA/hotels?city=Delhi` | Fetch Supplier A offers |
+| GET | `/supplierB/hotels?city=Delhi` | Fetch Supplier B offers |
 
 ## Run the Project
 
-1. Install dependencies:
+### 1. Start Docker Desktop
 
-   `npm install`
+Make sure Docker Desktop is running.
 
-2. Start the services:
+### 2. Open the project folder
 
-   `docker compose up -d --build`
+```bash
+cd D:\My_allproject\hotel-offer-orchestrator
+```
 
-3. Start the API in one terminal:
+### 3. Start the services
 
-   `npm run dev`
+```bash
+docker compose up -d --build
+```
 
-4. Start the Temporal worker in another terminal:
+### 4. Check service status
 
-   `npm run worker`
-
-5. Check the health endpoint:
-
-   `http://localhost:3000/health`
+```bash
+docker compose ps
+```
 
 ## Service URLs
-- API: http://localhost:3000
+
+- API Health: http://localhost:3001/health
+- Hotel Offers: http://localhost:3001/api/hotels?city=Delhi
 - Temporal UI: http://localhost:8233
 - Redis: localhost:6379
 
 ## GitHub Repository
+
 https://github.com/chandanram2003/hotel-offer-orchestrator
